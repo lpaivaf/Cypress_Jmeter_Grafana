@@ -27,8 +27,6 @@ O Cypress será usado para **automatizar o login** e capturar **dados dinâmicos
 
 > **URL principal:** [https://opensource-demo.orangehrmlive.com/](https://opensource-demo.orangehrmlive.com/)
 
----
-
 ### **2.1. Login e Captura do Cookie (UI)**
 
 Arquivo em: `cypress/e2e/login.cy.js`
@@ -42,8 +40,6 @@ describe("Login via UI", () => {
 });
 ```
 
----
-
 ### **2.2. Executando Cypress**
 
 ```bash
@@ -53,7 +49,8 @@ npx cypress run --spec "cypress/e2e/login.cy.js"
 Após a execução, será gerado o arquivo:
 
 ```json
-// cypress/fixtures/session.json
+cypress/fixtures/session.json
+
 {
   "cookie": "valor_do_cookie_aqui"
 }
@@ -65,27 +62,21 @@ Após a execução, será gerado o arquivo:
 
 ### **3.1 Executando JMeter**
 
-```command prompt (cmd) - Ajuste conforme o caminho do arquivo
+Command prompt (cmd) - Ajuste conforme o caminho do arquivo
 
+```
 cd C:\jmeter\apache-jmeter-5.6.3\bin
 jmeter.bat
-
 ```
 
 ### **3.2 Cofigure o "Authenticated Request"**
 
----
-
+```bash
 Protocol [https]:https
 Server Name or IP: EX: (opensource-demo.orangehrmlive.com)
 HTTP Request: GET
 Path:/web/index.php/dashboard/index
-
----
-
-O JMeter usará o cookie salvo pelo Cypress para realizar requisições autenticadas.
-
----
+```
 
 ### **3.3 Carregar o Cookie via JSR223 PreProcessor**
 
@@ -101,8 +92,6 @@ def json = new JsonSlurper().parseText(cookieFile.text)
 vars.put("session_cookie", json.cookie)
 ```
 
----
-
 ### **3.4. HTTP Header Manager**
 
 Adicione em:  
@@ -114,16 +103,12 @@ Adicione em:
 
 > **Atenção:** `orangehrm` é o nome do cookie no OrangeHRM. Ajuste se o nome for diferente.
 
----
-
 ### **3.5. HTTP Request**
 
 - **Protocol:** `https`
 - **Server Name:** `opensource-demo.orangehrmlive.com`
 - **Path:** `/web/index.php/dashboard/index`
 - **Method:** `GET`
-
----
 
 ### **3.6. Backend Listener (InfluxDB)**
 
@@ -145,22 +130,20 @@ Adicione em:
 
 O InfluxDB será usado para armazenar as métricas do JMeter.
 
----
-
 ### **4.1. Instalação (Windows via PowerShell)**
 
-```powershell
+powershell
+
+```
 wget https://download.influxdata.com/influxdb/releases/influxdb-1.12.2-windows.zip -UseBasicParsing -OutFile influxdb-1.12.2-windows.zip
 Expand-Archive .\influxdb-1.12.2-windows.zip -DestinationPath 'C:\Program Files\InfluxData'
 ```
 
----
-
 ### **4.2. Iniciando o InfluxDB**
 
-(Ajuste o caminho do seu arquivo)
+Powershell (Ajuste o caminho do seu arquivo)
 
-```powershell
+```
 cd "C:\Program Files\InfluxData\influxdb"
 .\influxd.exe
 ```
@@ -179,8 +162,6 @@ Connected to http://localhost:8086 version 1.12.2
 InfluxDB shell version: 1.12.2
 ```
 
----
-
 ### **4.3 Criando Banco e Usuário**
 
 ```sql
@@ -198,7 +179,7 @@ InfluxDB shell version: 1.12.2
 
 ### **5.1. Executando Grafana no Windows**
 
-Abra outro terminal powershell (Ajuste sempre o caminho do seu arquivo)
+Abra outro terminal Powershell (Ajuste sempre o caminho do seu arquivo)
 
 ```powershell
 cd "C:\grafana-enterprise_12.2.0_17949786146_windows_amd64\grafana-12.2.0\bin"
@@ -208,8 +189,6 @@ dir
 
 Acesse no navegador:  
 [http://localhost:3000](http://localhost:3000)
-
----
 
 ### **5.2. Conectar Grafana ao InfluxDB**
 
@@ -223,14 +202,10 @@ Acesse no navegador:
 | User/Pass      | `jmeter_test / test123` |
 | Query Language | `InfluxQL`              |
 
----
-
 ### **5.3. Importar Dashboard Pronto**
 
 - Acesse: [Dashboard 5496 - JMeter](https://grafana.com/grafana/dashboards/5496-apache-jmeter-dashboard-by-ubikloadpack/)
 - Importe o JSON no Grafana.
-
----
 
 ### **5.4. Métricas Recomendadas**
 
