@@ -234,7 +234,7 @@ Acesse no navegador:
    .\grafana-server.exe
    ```
 
-3. Rodar Test em:
+3. Rodar Test no Jmeter
 
    ```bash
    start >
@@ -242,6 +242,8 @@ Acesse no navegador:
 
 4. Visualizar métricas no Grafana:  
    [http://localhost:3000](http://localhost:3000)
+
+![Dashboard Grafana](cypress/printGrafana/dashboard.png)
 
 ---
 
@@ -264,4 +266,4 @@ Acesse no navegador:
 - [InfluxDB](https://www.influxdata.com/)
 - [Grafana](https://grafana.com/)
 
-## **9. LICENCE - MIT**
+## **9. LICENSE - MIT**
